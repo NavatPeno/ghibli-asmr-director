@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ghibli ASMR Director</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1a1714;--ink2:#4a4540;--ink3:#9a9590;
+  --paper:#f8f4ee;--paper2:#f0ebe2;--paper3:#e6dfd4;--paper4:#ddd5c8;
+  --amber:#b87a08;--amber-bg:#fef6e4;--amber-border:#f0c060;
+  --teal:#2a6b5a;--teal-bg:#e8f4f0;--teal-border:#7ec8b8;
+  --rose:#8a3a3a;--rose-bg:#faeaea;--rose-border:#e8a8a8;
+  --blue:#2a4a7a;--blue-bg:#eaf0fa;--blue-border:#9ab8e8;
+  --radius:10px;--radius-sm:7px;
+  --border:rgba(26,23,20,0.1);--border-md:rgba(26,23,20,0.16);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;min-height:100vh}
+
+/* ── LAYOUT ── */
+.app{display:grid;grid-template-columns:320px 1fr;min-height:100vh}
+.sidebar{background:var(--paper2);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column}
+.main{overflow-y:auto;display:flex;flex-direction:column}
+
+/* ── SIDEBAR HEADER ── */
+.s-head{padding:20px 18px 16px;border-bottom:1px solid var(--border)}
+.logo{font-family:'Lora',serif;font-size:17px;color:var(--ink);display:flex;align-items:center;gap:7px}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--amber)}
+.logo em{color:var(--amber);font-style:normal}
+.logo-sub{font-size:11px;color:var(--ink3);margin-top:3px}
+
+/* mode toggle */
+.mode-row{display:flex;gap:0;margin-top:14px;border:1px solid var(--border-md);border-radius:var(--radius-sm);overflow:hidden}
+.mode-btn{flex:1;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 4px;border:none;background:transparent;color:var(--ink3);cursor:pointer;transition:all .15s;text-align:center}
+.mode-btn.on{background:var(--ink);color:var(--paper)}
+.mode-desc{font-size:11px;color:var(--ink3);margin-top:6px;line-height:1.5}
+
+/* ── SIDEBAR SECTIONS ── */
+.s-body{padding:14px 16px;flex:1;display:flex;flex-direction:column;gap:14px}
+.sec{background:var(--paper);border:1px solid var(--border);border-radius:var(--radius);padding:13px 14px}
+.sec-title{font-size:10px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.sec-title .pip{width:5px;height:5px;border-radius:50%;background:var(--amber);flex-shrink:0}
+.field{margin-bottom:10px}
+.field:last-child{margin-bottom:0}
+label{font-size:11px;color:var(--ink2);display:block;margin-bottom:3px;font-weight:500}
+textarea,input[type=text],select{
+  width:100%;font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--ink);
+  background:var(--paper2);border:1px solid var(--border-md);border-radius:var(--radius-sm);
+  padding:7px 9px;outline:none;transition:border-color .15s,background .15s;resize:vertical
+}
+textarea:focus,input:focus,select:focus{border-color:var(--amber);background:#fff}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+/* tags */
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:11px;padding:3px 9px;border-radius:14px;border:1px solid var(--border-md);background:var(--paper2);color:var(--ink2);cursor:pointer;user-select:none;transition:all .12s}
+.tag.on{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber);font-weight:500}
+
+/* bible locked */
+.bible-lock{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius);padding:10px 12px;display:none}
+.bible-lock.show{display:block}
+.bl-title{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-bottom:7px}
+.bl-row{font-size:11px;color:var(--ink2);margin-bottom:3px;display:flex;gap:5px;line-height:1.45}
+.bl-key{color:var(--ink3);min-width:60px;flex-shrink:0}
+
+/* gen button */
+.gen-wrap{padding:14px 16px;border-top:1px solid var(--border);background:var(--paper2)}
+.btn{font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 16px;border-radius:var(--radius-sm);border:1px solid var(--border-md);background:transparent;color:var(--ink);cursor:pointer;transition:all .13s;font-weight:400}
+.btn:hover{background:var(--paper3)}
+.btn.pri{background:var(--ink);color:var(--paper);border-color:transparent;font-weight:500;width:100%}
+.btn.pri:hover{background:#2a2520}
+.btn.sm{font-size:11px;padding:4px 10px;border-radius:6px}
+.btn.teal{background:var(--teal-bg);color:var(--teal);border-color:var(--teal-border)}
+.btn.teal:hover{background:#d5ede8}
+.btn.amber{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border)}
+.btn.rose{background:var(--rose-bg);color:var(--rose);border-color:var(--rose-border)}
+
+/* ── MAIN PANEL ── */
+.main-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:40px;text-align:center;gap:12px}
+.empty-icon{font-size:40px;opacity:.5}
+.empty-title{font-family:'Lora',serif;font-size:20px;color:var(--ink2)}
+.empty-sub{font-size:13px;color:var(--ink3);max-width:340px;line-height:1.65}
+.pipeline{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.pip-step{font-size:11px;padding:4px 10px;border-radius:12px;background:var(--paper3);color:var(--ink2)}
+.pip-arrow{font-size:12px;color:var(--ink3)}
+
+/* output area */
+.out-wrap{padding:20px 24px;flex:1}
+.out-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap}
+.out-title{font-family:'Lora',serif;font-size:19px}
+.out-meta{font-size:11px;color:var(--ink3);margin-top:3px}
+.continuity-pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:500;background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border);padding:3px 9px;border-radius:10px}
+.continuity-pill::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--teal)}
+
+/* scene */
+.scene-block{margin-bottom:28px}
+.scene-head{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.scene-head::after{content:'';flex:1;height:1px;background:var(--amber-border);opacity:.5}
+.scene-count{font-size:10px;color:var(--ink3);margin-left:4px;text-transform:none;letter-spacing:0}
+
+/* shot card */
+.shot{background:#fff;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;transition:box-shadow .15s}
+.shot:hover{box-shadow:0 3px 14px rgba(26,23,20,.07)}
+.shot-top{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--paper2);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.shot-num{font-size:10px;font-weight:500;padding:2px 7px;border-radius:9px;background:var(--paper3);color:var(--ink3);white-space:nowrap}
+.shot-name{font-size:13px;font-weight:500;flex:1;min-width:100px}
+.shot-cam{font-size:10px;padding:2px 7px;border-radius:9px;background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border);white-space:nowrap}
+.shot-type{font-size:10px;padding:2px 7px;border-radius:9px;white-space:nowrap}
+.shot-type.est{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-border)}
+.shot-type.act{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.shot-type.det{background:var(--rose-bg);color:var(--rose);border:1px solid var(--rose-border)}
+.shot-type.emo{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+
+.shot-body{padding:11px 13px;display:flex;flex-direction:column;gap:10px}
+.shot-desc{font-size:12.5px;color:var(--ink2);line-height:1.6}
+
+/* prompt blocks */
+.prompt-block{border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
+.pb-head{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;gap:8px}
+.pb-head.gemini{background:var(--blue-bg);border-bottom:1px solid var(--blue-border)}
+.pb-head.veo{background:var(--teal-bg);border-bottom:1px solid var(--teal-border)}
+.pb-label{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.pb-label.gemini{color:var(--blue)}
+.pb-label.veo{color:var(--teal)}
+.pb-tool{font-size:10px;color:var(--ink3)}
+.pb-text{font-size:12px;line-height:1.65;padding:9px 11px;background:var(--paper2);color:var(--ink);font-family:'DM Sans',sans-serif;white-space:pre-wrap;word-break:break-word}
+.pb-foot{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--paper3);border-top:1px solid var(--border)}
+.copy-ok{font-size:11px;color:var(--teal);opacity:0;transition:opacity .3s;margin-left:2px}
+.capcut-tip{font-size:10px;color:var(--ink3);margin-left:auto;font-style:italic}
+
+/* loading */
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:14px;padding:40px}
+.spinner{width:26px;height:26px;border:2px solid var(--paper3);border-top-color:var(--amber);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-msg{font-size:13px;color:var(--ink3)}
+
+/* sticky footer */
+.out-footer{position:sticky;bottom:0;background:var(--paper);border-top:1px solid var(--border);padding:10px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-meta{font-size:11px;color:var(--ink3)}
+
+@media(max-width:680px){
+  .app{grid-template-columns:1fr}
+  .sidebar{border-right:none;border-bottom:1px solid var(--border)}
+  .g2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═══ SIDEBAR ═══ -->
+<div class="sidebar">
+  <div class="s-head">
+    <div class="logo"><span class="logo-dot"></span> <em>Ghibli</em> ASMR Director</div>
+    <div class="logo-sub">Gemini image + Veo motion prompts · CapCut ready</div>
+
+    <div class="mode-row" style="margin-top:14px">
+      <button class="mode-btn on" id="m-short" onclick="setMode('short')">&#9654; Short · 60s</button>
+      <button class="mode-btn" id="m-long" onclick="setMode('long')">&#9654;&#9654; Long · 10 min</button>
+    </div>
+    <div class="mode-desc" id="mode-desc">~10–12 shots · one slice-of-life moment · 5–7 sec per clip</div>
+  </div>
+
+  <div class="s-body">
+
+    <!-- SCENE BIBLE -->
+    <div class="sec">
+      <div class="sec-title"><span class="pip"></span> Scene bible — continuity lock</div>
+      <div class="g2">
+        <div class="field">
+          <label>Character</label>
+          <input type="text" id="b-char" placeholder="e.g. young woman, brown hair bun, soft eyes"/>
+        </div>
+        <div class="field">
+          <label>Outfit</label>
+          <input type="text" id="b-outfit" placeholder="e.g. cream knit cardigan, pale linen dress"/>
+        </div>
+        <div class="field">
+          <label>Location</label>
+          <input type="text" id="b-loc" placeholder="e.g. small Japanese countryside cottage"/>
+        </div>
+        <div class="field">
+          <label>Room details</label>
+          <input type="text" id="b-room" placeholder="e.g. wooden beams, tall window, plants, rice cooker"/>
+        </div>
+        <div class="field">
+          <label>Lighting</label>
+          <select id="b-light">
+            <option value="soft early morning golden light filtering through linen curtains">Early morning</option>
+            <option value="warm midday diffused light">Midday</option>
+            <option value="golden afternoon sunlight">Afternoon</option>
+            <option value="grey rainy dawn light through rain-speckled windows">Rainy dawn</option>
+            <option value="soft blue-hour twilight">Dusk</option>
+            <option value="warm lamplight at night">Night lamp</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Color palette</label>
+          <input type="text" id="b-palette" placeholder="e.g. warm amber, sage green, cream, brown"/>
+        </div>
+      </div>
+      <div class="field" style="margin-top:4px">
+        <label>Mood / atmosphere</label>
+        <input type="text" id="b-mood" placeholder="e.g. calm ASMR, cozy, quiet solitude, nostalgic"/>
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <div class="sec">
+      <div class="sec-title"><span class="pip"></span> Story / activity</div>
+      <div class="field">
+        <label>Describe the full sequence</label>
+        <textarea id="story" rows="4" placeholder="e.g. A quiet rainy morning — she wakes up slowly, makes tea, sits by the window watching rain, reads a book, eventually drifts off to sleep again"></textarea>
+      </div>
+      <div class="field">
+        <label>Scene sections <span style="color:var(--ink3);font-weight:400">(optional — auto if blank)</span></label>
+        <textarea id="sections" rows="2" placeholder="e.g. Waking up (3 shots), Making tea (4 shots), Window moment (3 shots)"></textarea>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="sec">
+      <div class="sec-title"><span class="pip"></span> Shot settings</div>
+      <div class="g2">
+        <div class="field">
+          <label>Shots per scene</label>
+          <select id="shotcount">
+            <option value="3">3 shots</option>
+            <option value="5" selected>5 shots</option>
+            <option value="8">8 shots</option>
+            <option value="10">10 shots</option>
+            <option value="12">12 shots</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Aspect ratio</label>
+          <select id="ratio">
+            <option value="--ar 9:16">9:16 (Shorts)</option>
+            <option value="--ar 16:9">16:9 (Long)</option>
+            <option value="--ar 4:3">4:3 Classic</option>
+            <option value="--ar 1:1">1:1 Square</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Camera angles</label>
+        <div class="tags" id="angles">
+          <span class="tag on" data-v="wide establishing shot">Wide</span>
+          <span class="tag on" data-v="medium shot">Medium</span>
+          <span class="tag on" data-v="close-up detail">Close-up</span>
+          <span class="tag on" data-v="over-the-shoulder POV">POV</span>
+          <span class="tag" data-v="bird's eye top-down">Top-down</span>
+          <span class="tag" data-v="low angle upward">Low angle</span>
+          <span class="tag" data-v="silhouette backlit">Silhouette</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>ASMR sound style <span style="color:var(--ink3);font-weight:400">(for Veo motion hints)</span></label>
+        <div class="tags" id="sounds">
+          <span class="tag on" data-v="rain sounds">Rain</span>
+          <span class="tag on" data-v="gentle kitchen sounds">Kitchen</span>
+          <span class="tag" data-v="nature birds">Nature</span>
+          <span class="tag" data-v="fire crackling">Fire</span>
+          <span class="tag" data-v="page turning">Pages</span>
+          <span class="tag" data-v="fabric rustling">Fabric</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /s-body -->
+
+  <div class="gen-wrap">
+    <button class="btn pri" onclick="generate()">&#9654; Generate shot list + prompts</button>
+    <div style="display:flex;gap:6px;margin-top:8px">
+      <button class="btn sm" style="flex:1" onclick="resetAll()">Reset</button>
+      <button class="btn sm amber" style="flex:1" onclick="lockBible()">Lock bible</button>
+    </div>
+  </div>
+</div><!-- /sidebar -->
+
+<!-- ═══ MAIN ═══ -->
+<div class="main" id="main">
+  <div class="main-empty" id="empty">
+    <div class="empty-icon">&#127916;</div>
+    <div class="empty-title">Your Ghibli ASMR director</div>
+    <div class="empty-sub">Fill in the Scene Bible to lock your world, describe your story, then generate. Every shot gets two prompts — one for Gemini, one for Veo.</div>
+    <div class="pipeline">
+      <span class="pip-step">Scene Bible</span>
+      <span class="pip-arrow">→</span>
+      <span class="pip-step">Shot list</span>
+      <span class="pip-arrow">→</span>
+      <span class="pip-step">Gemini prompt</span>
+      <span class="pip-arrow">→</span>
+      <span class="pip-step">Veo motion</span>
+      <span class="pip-arrow">→</span>
+      <span class="pip-step">CapCut</span>
+      <span class="pip-arrow">→</span>
+      <span class="pip-step">YouTube</span>
+    </div>
+  </div>
+  <div id="output" style="display:none;flex:1;display:none;flex-direction:column"></div>
+</div>
+
+</div><!-- /app -->
+
+<script>
+const GHIBLI = `High-detail modern anime film background aesthetic, cozy Ghibli-inspired atmosphere, crisp polished line art combined with soft digital paint, lush environmental detail, immersive storytelling, soft cinematic 2.5D depth, warm ambient lighting, vivid warm color harmony, stylized anime rendering, non-photorealistic, no live-action realism, no plastic CGI, no glossy 3D render`;
+
+let currentMode = 'short';
+let bibleText = '';
+
+// tag toggles
+document.getElementById('angles').addEventListener('click', e => {
+  if(e.target.classList.contains('tag')) e.target.classList.toggle('on');
+});
+document.getElementById('sounds').addEventListener('click', e => {
+  if(e.target.classList.contains('tag')) e.target.classList.toggle('on');
+});
+
+function setMode(m) {
+  currentMode = m;
+  document.getElementById('m-short').classList.toggle('on', m==='short');
+  document.getElementById('m-long').classList.toggle('on', m==='long');
+  document.getElementById('mode-desc').textContent = m==='short'
+    ? '~10–12 shots · one slice-of-life moment · 5–7 sec per clip'
+    : '~80–120 shots · full story arc · multiple scenes · 5–8 sec per clip';
+  if(m==='long') {
+    document.getElementById('shotcount').value = '8';
+    document.getElementById('ratio').value = '--ar 16:9';
+  } else {
+    document.getElementById('shotcount').value = '5';
+    document.getElementById('ratio').value = '--ar 9:16';
+  }
+}
+
+function getBible() {
+  return {
+    char: document.getElementById('b-char').value.trim(),
+    outfit: document.getElementById('b-outfit').value.trim(),
+    loc: document.getElementById('b-loc').value.trim(),
+    room: document.getElementById('b-room').value.trim(),
+    light: document.getElementById('b-light').value,
+    palette: document.getElementById('b-palette').value.trim(),
+    mood: document.getElementById('b-mood').value.trim(),
+  };
+}
+
+function bibleToString(b) {
+  const parts = [];
+  if(b.char) parts.push(`${b.char}`);
+  if(b.outfit) parts.push(`wearing ${b.outfit}`);
+  if(b.loc) parts.push(b.loc);
+  if(b.room) parts.push(b.room);
+  parts.push(b.light);
+  if(b.palette) parts.push(`color palette: ${b.palette}`);
+  if(b.mood) parts.push(b.mood);
+  return parts.join(', ');
+}
+
+function lockBible() {
+  const b = getBible();
+  bibleText = bibleToString(b);
+  alert('Scene Bible locked! Every prompt will now include:\n\n' + bibleText);
+}
+
+function getAngles() {
+  return [...document.querySelectorAll('#angles .tag.on')].map(t=>t.dataset.v);
+}
+function getSounds() {
+  return [...document.querySelectorAll('#sounds .tag.on')].map(t=>t.dataset.v);
+}
+
+function generate() {
+  const story = document.getElementById('story').value.trim();
+  if(!story){alert('Please describe your story or activity!');return;}
+
+  const bible = getBible();
+  const bs = bibleToString(bible);
+  const sections = document.getElementById('sections').value.trim();
+  const shotcount = document.getElementById('shotcount').value;
+  const ratio = document.getElementById('ratio').value;
+  const angles = getAngles().join(', ') || 'wide, medium, close-up';
+  const sounds = getSounds().join(', ') || 'ambient sounds';
+  const mode = currentMode;
+
+  const totalShots = mode === 'short' ? '10–12 total' : '80–120 total across many scenes';
+
+  const bibleLines = [];
+  if(bible.char) bibleLines.push(`• Character: ${bible.char}${bible.outfit ? ', wearing '+bible.outfit:''}`);
+  if(bible.loc) bibleLines.push(`• Location: ${bible.loc}${bible.room?', '+bible.room:''}`);
+  bibleLines.push(`• Lighting: ${bible.light}`);
+  if(bible.palette) bibleLines.push(`• Palette: ${bible.palette}`);
+  if(bible.mood) bibleLines.push(`• Mood: ${bible.mood}`);
+
+  const prompt = `You are a Ghibli ASMR video director planning a ${mode==='short'?'60-second YouTube Short':'10-minute YouTube video'}.
+
+SCENE BIBLE — stamp these details into EVERY single image prompt and every Veo prompt. Never let them drift:
+${bibleLines.join('\n')}
+
+STORY: "${story}"
+${sections?`SECTIONS: ${sections}`:'Auto-split into logical scenes with good pacing.'}
+FORMAT: ${mode==='short'?'Short (60s)':'Long (10 min)'}
+TOTAL SHOTS: ${totalShots}
+SHOTS PER SCENE: approximately ${shotcount}
+CAMERA ANGLES (cycle through): ${angles}
+ASMR SOUNDS: ${sounds}
+ASPECT RATIO: ${ratio}
+
+For each shot, give me EXACTLY this format — no deviations:
+
+═══ [SCENE NAME] ═══
+
+Shot [N] — [Title] · [ESTABLISHING/ACTION/DETAIL/EMOTIONAL]
+Camera: [angle]
+CapCut clip: [duration in seconds, e.g. 5s] · [transition suggestion, e.g. fade/cut/dissolve]
+Action: [one sentence describing what is happening]
+
+GEMINI IMAGE PROMPT:
+[2–3 sentences visual description. MUST include: character appearance + outfit + location details + lighting + palette from the bible above. Describe the exact composition and what fills the frame. End with: ${ratio}, ${GHIBLI}]
+
+VEO MOTION PROMPT:
+[2–3 sentences describing ONLY the movement and camera motion for this clip. Include: what moves (steam, hands, curtain, etc.), camera movement (slow push in / gentle pan / static / slight drift), speed (slow / unhurried / barely perceptible), and any ASMR-relevant motion like ${sounds}. Start with "Camera:" to describe camera move, then "Subject:" for what moves in scene.]
+
+---
+
+RULES:
+- Every GEMINI prompt MUST re-state character + outfit + room so Gemini never drifts between shots
+- Every VEO prompt must be calm, slow, ASMR-paced — no fast cuts or action
+- Shot types: ESTABLISHING=wide world-building, ACTION=character doing something, DETAIL=close texture/object, EMOTIONAL=quiet feeling moment
+- CapCut tip: short clips (4–6s) for action, longer (6–8s) for emotional/establishing
+- For Long format: include varied pacing — some slower emotional scenes, some gentle action sequences`;
+
+  sendPrompt(prompt);
+}
+
+function resetAll() {
+  document.getElementById('story').value='';
+  document.getElementById('sections').value='';
+  document.getElementById('output').style.display='none';
+  document.getElementById('empty').style.display='flex';
+}
+
+// copy helpers
+function copyText(text, btnEl, okId) {
+  navigator.clipboard.writeText(text).then(()=>{
+    const ok = document.getElementById(okId);
+    if(ok){ok.style.opacity='1';setTimeout(()=>ok.style.opacity='0',2000);}
+  });
+}
+</script>
+</body>
+</html>
