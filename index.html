@@ -277,6 +277,14 @@ textarea:focus,input:focus,select:focus{border-color:var(--amber);background:#ff
       <button class="btn sm" style="flex:1" onclick="resetAll()">Reset</button>
       <button class="btn sm amber" style="flex:1" onclick="lockBible()">Lock bible</button>
     </div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <button class="btn sm teal" style="flex:1" onclick="copyAllPrompts()">Copy all</button>
+      <button class="btn sm teal" style="flex:1" onclick="downloadTxt()">Export TXT</button>
+    </div>
+    <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+      <button class="btn sm amber" style="flex:1" onclick="savePreset()">Save preset</button>
+      <button class="btn sm" style="flex:1" onclick="loadPreset()">Load preset</button>
+    </div>
   </div>
 </div><!-- /sidebar -->
 
@@ -372,12 +380,25 @@ function getSounds() {
   return [...document.querySelectorAll('#sounds .tag.on')].map(t=>t.dataset.v);
 }
 
+function showLoading() {
+  document.getElementById('empty').style.display = 'none';
+  const output = document.getElementById('output');
+  output.style.display = 'flex';
+  output.innerHTML = `
+    <div class="loading">
+      <div class="spinner"></div>
+      <div class="loading-msg">Building your director prompt package...</div>
+    </div>
+  `;
+}
+
 function generate() {
   const story = document.getElementById('story').value.trim();
   if(!story){alert('Please describe your story or activity!');return;}
 
+  showLoading();
+
   const bible = getBible();
-  const bs = bibleToString(bible);
   const sections = document.getElementById('sections').value.trim();
   const shotcount = document.getElementById('shotcount').value;
   const ratio = document.getElementById('ratio').value;
@@ -397,7 +418,8 @@ function generate() {
   const prompt = `You are a Ghibli ASMR video director planning a ${mode==='short'?'60-second YouTube Short':'10-minute YouTube video'}.
 
 SCENE BIBLE — stamp these details into EVERY single image prompt and every Veo prompt. Never let them drift:
-${bibleLines.join('\n')}
+${bibleLines.join('
+')}
 
 STORY: "${story}"
 ${sections?`SECTIONS: ${sections}`:'Auto-split into logical scenes with good pacing.'}
@@ -432,14 +454,177 @@ RULES:
 - CapCut tip: short clips (4–6s) for action, longer (6–8s) for emotional/establishing
 - For Long format: include varied pacing — some slower emotional scenes, some gentle action sequences`;
 
-  sendPrompt(prompt);
+  setTimeout(() => sendPrompt(prompt, { mode, story, sections, shotcount, ratio, angles, sounds, bible }), 300);
 }
 
 function resetAll() {
-  document.getElementById('story').value='';
-  document.getElementById('sections').value='';
-  document.getElementById('output').style.display='none';
-  document.getElementById('empty').style.display='flex';
+  document.getElementById('b-char').value = '';
+  document.getElementById('b-outfit').value = '';
+  document.getElementById('b-loc').value = '';
+  document.getElementById('b-room').value = '';
+  document.getElementById('b-light').selectedIndex = 0;
+  document.getElementById('b-palette').value = '';
+  document.getElementById('b-mood').value = '';
+  document.getElementById('story').value = '';
+  document.getElementById('sections').value = '';
+  document.getElementById('shotcount').value = currentMode === 'long' ? '8' : '5';
+  document.getElementById('ratio').value = currentMode === 'long' ? '--ar 16:9' : '--ar 9:16';
+  document.getElementById('output').innerHTML = '';
+  document.getElementById('output').style.display = 'none';
+  document.getElementById('empty').style.display = 'flex';
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function buildSummary(meta) {
+  const bits = [
+    meta.mode === 'short' ? 'Short format' : 'Long format',
+    `${meta.shotcount} shots per scene`,
+    meta.ratio,
+    meta.angles,
+    meta.sounds
+  ];
+  return bits.filter(Boolean).join(' · ');
+}
+
+function sendPrompt(prompt, meta) {
+  const output = document.getElementById('output');
+  const locked = bibleToString(meta.bible);
+  const continuity = locked ? `<div class="continuity-pill">Continuity locked</div>` : '';
+  const storyLine = escapeHtml(meta.story);
+  const sectionLine = meta.sections ? escapeHtml(meta.sections) : 'Auto scene split';
+  const bibleLine = locked ? escapeHtml(locked) : 'No scene bible locked yet';
+
+  output.style.display = 'flex';
+  output.innerHTML = `
+    <div class="out-wrap">
+      <div class="out-head">
+        <div>
+          <div class="out-title">Director prompt package</div>
+          <div class="out-meta">${escapeHtml(buildSummary(meta))}</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          ${continuity}
+          <button class="btn sm" onclick="copyAllPrompts()">Copy all</button>
+          <button class="btn sm teal" onclick="downloadTxt()">Export TXT</button>
+        </div>
+      </div>
+
+      <div class="scene-block">
+        <div class="scene-head">Project brief <span class="scene-count">ready to paste into ChatGPT / Claude / Gemini</span></div>
+        <div class="shot">
+          <div class="shot-top">
+            <span class="shot-num">INPUT</span>
+            <div class="shot-name">Story and continuity summary</div>
+            <span class="shot-type emo">DIRECTOR</span>
+          </div>
+          <div class="shot-body">
+            <div class="shot-desc"><strong>Story:</strong> ${storyLine}</div>
+            <div class="shot-desc"><strong>Sections:</strong> ${sectionLine}</div>
+            <div class="shot-desc"><strong>Scene Bible:</strong> ${bibleLine}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scene-block">
+        <div class="scene-head">Master prompt <span class="scene-count">full generation instruction</span></div>
+        <div class="prompt-block">
+          <div class="pb-head gemini">
+            <div class="pb-label gemini">Director Prompt</div>
+            <div class="pb-tool">Copy into your AI tool</div>
+          </div>
+          <div class="pb-text" id="promptText">${escapeHtml(prompt)}</div>
+          <div class="pb-foot">
+            <button class="btn sm" onclick="copyPromptOnly()">Copy prompt</button>
+            <span class="copy-ok" id="copyPromptOk">Copied</span>
+            <span class="capcut-tip">Use this as your main planning prompt.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="out-footer">
+      <button class="btn sm" onclick="copyAllPrompts()">Copy all</button>
+      <button class="btn sm teal" onclick="downloadTxt()">Export TXT</button>
+      <button class="btn sm amber" onclick="savePreset()">Save preset</button>
+      <button class="btn sm" onclick="loadPreset()">Load preset</button>
+      <span class="footer-meta">Saved presets stay in this browser only.</span>
+    </div>
+  `;
+  document.getElementById('empty').style.display = 'none';
+}
+
+function copyPromptOnly() {
+  const text = document.getElementById('promptText')?.innerText?.trim();
+  if(!text){alert('Nothing to copy yet.');return;}
+  copyText(text, null, 'copyPromptOk');
+}
+
+function copyAllPrompts() {
+  const output = document.getElementById('output');
+  const text = output ? output.innerText.trim() : '';
+  if(!text){alert('Nothing to copy yet.');return;}
+  navigator.clipboard.writeText(text).then(()=>alert('All output copied.'));
+}
+
+function downloadTxt() {
+  const output = document.getElementById('output');
+  const text = output ? output.innerText.trim() : '';
+  if(!text){alert('Nothing to export yet.');return;}
+
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'ghibli-asmr-director-output.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function savePreset() {
+  const preset = {
+    char: document.getElementById('b-char').value,
+    outfit: document.getElementById('b-outfit').value,
+    loc: document.getElementById('b-loc').value,
+    room: document.getElementById('b-room').value,
+    light: document.getElementById('b-light').value,
+    palette: document.getElementById('b-palette').value,
+    mood: document.getElementById('b-mood').value,
+    story: document.getElementById('story').value,
+    sections: document.getElementById('sections').value,
+    shotcount: document.getElementById('shotcount').value,
+    ratio: document.getElementById('ratio').value,
+    mode: currentMode
+  };
+  localStorage.setItem('ghibliDirectorPreset', JSON.stringify(preset));
+  alert('Preset saved in this browser.');
+}
+
+function loadPreset() {
+  const raw = localStorage.getItem('ghibliDirectorPreset');
+  if(!raw){alert('No preset saved yet.');return;}
+
+  const preset = JSON.parse(raw);
+  if(preset.mode) setMode(preset.mode);
+  document.getElementById('b-char').value = preset.char || '';
+  document.getElementById('b-outfit').value = preset.outfit || '';
+  document.getElementById('b-loc').value = preset.loc || '';
+  document.getElementById('b-room').value = preset.room || '';
+  document.getElementById('b-light').value = preset.light || 'soft early morning golden light filtering through linen curtains';
+  document.getElementById('b-palette').value = preset.palette || '';
+  document.getElementById('b-mood').value = preset.mood || '';
+  document.getElementById('story').value = preset.story || '';
+  document.getElementById('sections').value = preset.sections || '';
+  document.getElementById('shotcount').value = preset.shotcount || (currentMode === 'long' ? '8' : '5');
+  document.getElementById('ratio').value = preset.ratio || (currentMode === 'long' ? '--ar 16:9' : '--ar 9:16');
+  alert('Preset loaded.');
 }
 
 // copy helpers
@@ -449,6 +634,16 @@ function copyText(text, btnEl, okId) {
     if(ok){ok.style.opacity='1';setTimeout(()=>ok.style.opacity='0',2000);}
   });
 }
+
+window.addEventListener('load', () => {
+  try {
+    const raw = localStorage.getItem('ghibliDirectorPreset');
+    if(raw) {
+      const preset = JSON.parse(raw);
+      if(preset.mode) setMode(preset.mode);
+    }
+  } catch(e) {}
+});
 </script>
 </body>
 </html>
