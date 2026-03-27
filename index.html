@@ -8,201 +8,96 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --ink:#1f1a16;
-  --ink2:#544d46;
-  --ink3:#8e877f;
-  --paper:#f7f3ec;
-  --paper2:#efe8dd;
-  --paper3:#e5dccf;
-  --paper4:#d6ccbe;
-  --card:#fffdfa;
-  --amber:#b87a08;
-  --amber-bg:#fff4dd;
-  --amber-border:#e7bc63;
-  --teal:#2d6b5e;
-  --teal-bg:#e9f4f1;
-  --teal-border:#9fd0c6;
-  --blue:#345a8b;
-  --blue-bg:#edf3fb;
-  --blue-border:#a6c0e6;
-  --rose:#8e4747;
-  --rose-bg:#faeded;
-  --rose-border:#e4b0b0;
-  --shadow:0 10px 30px rgba(31,26,22,.07);
-  --border:rgba(31,26,22,.1);
-  --border-md:rgba(31,26,22,.16);
-  --radius:16px;
-  --radius-sm:10px;
+  --ink:#1f1a16;--ink2:#544d46;--ink3:#8e877f;
+  --paper:#f7f3ec;--paper2:#efe8dd;--paper3:#e5dccf;--paper4:#d6ccbe;
+  --card:#fffdfa;--amber:#b87a08;--amber-bg:#fff4dd;--amber-border:#e7bc63;
+  --teal:#2d6b5e;--teal-bg:#e9f4f1;--teal-border:#9fd0c6;
+  --blue:#345a8b;--blue-bg:#edf3fb;--blue-border:#a6c0e6;
+  --rose:#8e4747;--rose-bg:#faeded;--rose-border:#e4b0b0;
+  --shadow:0 10px 30px rgba(31,26,22,.07);--border:rgba(31,26,22,.1);--border-md:rgba(31,26,22,.16);
+  --radius:16px;--radius-sm:10px;
 }
 body{
   font-family:'DM Sans',sans-serif;
-  background:
-    radial-gradient(circle at top right, rgba(255,255,255,.5), transparent 28%),
-    linear-gradient(180deg,#f8f4ee 0%,#f3ede4 100%);
-  color:var(--ink);
-  min-height:100vh;
+  background:radial-gradient(circle at top right, rgba(255,255,255,.5), transparent 28%), linear-gradient(180deg,#f8f4ee 0%,#f3ede4 100%);
+  color:var(--ink);min-height:100vh;
 }
 button,input,select,textarea{font:inherit}
-.app{display:grid;grid-template-columns:360px 1fr;min-height:100vh}
-.sidebar{
-  background:rgba(239,232,221,.88);
-  backdrop-filter:blur(14px);
-  border-right:1px solid var(--border);
-  overflow-y:auto;
-  display:flex;
-  flex-direction:column;
-}
-.main{overflow-y:auto;display:flex;flex-direction:column;position:relative}
+.app{display:grid;grid-template-columns:380px 1fr;min-height:100vh}
+.sidebar{background:rgba(239,232,221,.9);backdrop-filter:blur(14px);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column}
+.main{overflow-y:auto;display:flex;flex-direction:column}
 .s-head{padding:22px 18px 16px;border-bottom:1px solid var(--border)}
 .logo{display:flex;align-items:center;gap:9px;font-family:'Lora',serif;font-size:28px;line-height:1.1;color:var(--ink)}
 .logo-dot{width:9px;height:9px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:4px}
 .logo em{color:var(--amber);font-style:normal}
 .logo-sub{font-size:12px;color:var(--ink3);margin-top:8px;line-height:1.5}
 .mode-row{display:flex;gap:0;margin-top:16px;border:1px solid var(--border-md);border-radius:12px;overflow:hidden;background:rgba(255,255,255,.3)}
-.mode-btn{flex:1;border:none;background:transparent;color:var(--ink3);padding:10px 8px;cursor:pointer;font-size:13px;font-weight:600;transition:.18s}
+.mode-btn{flex:1;border:none;background:transparent;color:var(--ink3);padding:10px 8px;cursor:pointer;font-size:13px;font-weight:700;transition:.18s}
 .mode-btn.on{background:var(--ink);color:#fff}
 .mode-desc{font-size:11px;color:var(--ink3);margin-top:8px;line-height:1.5}
 .s-body{padding:16px;display:flex;flex-direction:column;gap:14px;flex:1}
-.sec{background:rgba(255,253,250,.72);border:1px solid var(--border);border-radius:var(--radius);padding:14px;box-shadow:0 2px 10px rgba(31,26,22,.02)}
+.sec{background:rgba(255,253,250,.76);border:1px solid var(--border);border-radius:var(--radius);padding:14px;box-shadow:0 2px 10px rgba(31,26,22,.02)}
 .sec-title{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:7px}
 .sec-title .pip{width:5px;height:5px;border-radius:50%;background:var(--amber)}
-.field{margin-bottom:11px}
-.field:last-child{margin-bottom:0}
+.field{margin-bottom:11px}.field:last-child{margin-bottom:0}
 label{font-size:11px;font-weight:600;color:var(--ink2);display:block;margin-bottom:5px}
 textarea,input[type=text],select{
-  width:100%;
-  border:1px solid var(--border-md);
-  background:rgba(255,255,255,.64);
-  border-radius:12px;
-  padding:10px 11px;
-  color:var(--ink);
-  font-size:13px;
-  outline:none;
-  transition:border-color .18s, box-shadow .18s, background .18s;
-  resize:vertical;
+  width:100%;border:1px solid var(--border-md);background:rgba(255,255,255,.66);border-radius:12px;padding:10px 11px;color:var(--ink);font-size:13px;outline:none;transition:border-color .18s, box-shadow .18s, background .18s;resize:vertical
 }
-textarea:focus,input[type=text]:focus,select:focus{
-  border-color:var(--amber);
-  box-shadow:0 0 0 4px rgba(184,122,8,.08);
-  background:#fff;
-}
+textarea:focus,input[type=text]:focus,select:focus{border-color:var(--amber);box-shadow:0 0 0 4px rgba(184,122,8,.08);background:#fff}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .helper{font-size:11px;color:var(--ink3);line-height:1.45}
 .tags{display:flex;flex-wrap:wrap;gap:7px}
-.tag{
-  border:1px solid var(--border-md);
-  background:rgba(255,255,255,.55);
-  color:var(--ink2);
-  border-radius:999px;
-  padding:7px 11px;
-  font-size:12px;
-  cursor:pointer;
-  user-select:none;
-  transition:.16s;
-}
-.tag:hover{transform:translateY(-1px);background:#fff}
-.tag.on{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border);font-weight:700;box-shadow:0 4px 12px rgba(184,122,8,.08)}
+.tag{border:1px solid var(--border-md);background:rgba(255,255,255,.55);color:var(--ink2);border-radius:999px;padding:7px 11px;font-size:12px;cursor:pointer;user-select:none;transition:.16s}
+.tag:hover{transform:translateY(-1px);background:#fff}.tag.on{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border);font-weight:700;box-shadow:0 4px 12px rgba(184,122,8,.08)}
 .inline-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.btn{
-  border:1px solid var(--border-md);
-  background:rgba(255,255,255,.55);
-  color:var(--ink);
-  border-radius:12px;
-  padding:10px 14px;
-  cursor:pointer;
-  transition:.16s;
-}
+.btn{border:1px solid var(--border-md);background:rgba(255,255,255,.55);color:var(--ink);border-radius:12px;padding:10px 14px;cursor:pointer;transition:.16s}
 .btn:hover{background:#fff;transform:translateY(-1px)}
-.btn.pri{width:100%;background:var(--ink);color:#fff;border-color:transparent;font-weight:700}
-.btn.pri:hover{background:#2b241f}
-.btn.sm{padding:9px 12px;font-size:12px}
-.btn.teal{background:var(--teal-bg);color:var(--teal);border-color:var(--teal-border)}
-.btn.amber{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border)}
-.btn.rose{background:var(--rose-bg);color:var(--rose);border-color:var(--rose-border)}
-.btn.full{flex:1}
-.gen-wrap{padding:16px;border-top:1px solid var(--border);background:rgba(239,232,221,.92)}
+.btn.pri{width:100%;background:var(--ink);color:#fff;border-color:transparent;font-weight:700}.btn.pri:hover{background:#2b241f}
+.btn.sm{padding:9px 12px;font-size:12px}.btn.teal{background:var(--teal-bg);color:var(--teal);border-color:var(--teal-border)}
+.btn.amber{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border)}.btn.rose{background:var(--rose-bg);color:var(--rose);border-color:var(--rose-border)}
+.btn.full{flex:1}.gen-wrap{padding:16px;border-top:1px solid var(--border);background:rgba(239,232,221,.92)}
 .main-shell{padding:28px 28px 22px;display:flex;flex-direction:column;gap:18px;min-height:100vh}
-.hero{
-  background:linear-gradient(145deg, rgba(255,253,250,.88), rgba(255,247,236,.76));
-  border:1px solid var(--border);
-  border-radius:24px;
-  min-height:230px;
-  box-shadow:var(--shadow);
-  position:relative;
-  overflow:hidden;
-}
-.hero::before{
-  content:'';
-  position:absolute;inset:auto -80px -80px auto;
-  width:220px;height:220px;border-radius:50%;
-  background:radial-gradient(circle, rgba(184,122,8,.09), transparent 65%);
-}
-.hero-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;min-height:230px;padding:32px;text-align:center}
-.main-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;max-width:640px}
-.empty-icon{font-size:44px;opacity:.52}
-.empty-title{font-family:'Lora',serif;font-size:42px;line-height:1.1;color:var(--ink2)}
-.empty-sub{font-size:17px;color:var(--ink3);line-height:1.75}
-.pipeline{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:2px}
+.hero{background:linear-gradient(145deg, rgba(255,253,250,.9), rgba(255,247,236,.78));border:1px solid var(--border);border-radius:24px;min-height:250px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:auto -80px -80px auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle, rgba(184,122,8,.1), transparent 65%)}
+.hero-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;min-height:250px;padding:32px;text-align:center}
+.main-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;max-width:700px}
+.empty-icon{font-size:44px;opacity:.52}.empty-title{font-family:'Lora',serif;font-size:42px;line-height:1.1;color:var(--ink2)}
+.empty-sub{font-size:17px;color:var(--ink3);line-height:1.75}.pipeline{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:2px}
 .pip-step{font-size:12px;color:var(--ink2);background:rgba(229,220,207,.68);padding:7px 12px;border-radius:999px;border:1px solid rgba(31,26,22,.06)}
 .pip-arrow{align-self:center;color:var(--ink3)}
 .quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .info-card{background:rgba(255,253,250,.82);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:0 8px 20px rgba(31,26,22,.03)}
 .info-kicker{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-bottom:8px}
-.info-title{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:5px}
-.info-copy{font-size:13px;color:var(--ink2);line-height:1.65}
+.info-title{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:5px}.info-copy{font-size:13px;color:var(--ink2);line-height:1.65}
 .output{display:none;flex-direction:column;gap:18px}
 .out-wrap{background:rgba(255,253,250,.88);border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
 .out-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:22px 22px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.out-title{font-family:'Lora',serif;font-size:30px;line-height:1.15}
-.out-meta{font-size:12px;color:var(--ink3);margin-top:6px;line-height:1.55}
-.out-actions{display:flex;gap:8px;flex-wrap:wrap}
-.out-grid{display:grid;grid-template-columns:300px 1fr;gap:18px;padding:18px}
+.out-title{font-family:'Lora',serif;font-size:30px;line-height:1.15}.out-meta{font-size:12px;color:var(--ink3);margin-top:6px;line-height:1.55}
+.out-actions{display:flex;gap:8px;flex-wrap:wrap}.out-grid{display:grid;grid-template-columns:300px 1fr;gap:18px;padding:18px}
 .summary-card,.prompt-card,.shot-list-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden}
-.summary-card{padding:16px;height:fit-content;position:sticky;top:18px}
-.summary-title{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-bottom:12px}
-.summary-list{display:flex;flex-direction:column;gap:10px}
-.summary-row{padding:10px 11px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(247,243,236,.9))}
-.summary-key{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);font-weight:700;margin-bottom:4px}
-.summary-value{font-size:13px;color:var(--ink2);line-height:1.55}
-.right-stack{display:flex;flex-direction:column;gap:18px}
-.prompt-card-head,.shot-list-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.prompt-card-title,.shot-list-title{font-size:14px;font-weight:700;color:var(--ink)}
-.prompt-card-sub{font-size:11px;color:var(--ink3)}
+.summary-card{padding:16px;height:fit-content;position:sticky;top:18px}.summary-title{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);font-weight:700;margin-bottom:12px}
+.summary-list{display:flex;flex-direction:column;gap:10px}.summary-row{padding:10px 11px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(247,243,236,.9))}
+.summary-key{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);font-weight:700;margin-bottom:4px}.summary-value{font-size:13px;color:var(--ink2);line-height:1.55}
+.right-stack{display:flex;flex-direction:column;gap:18px}.prompt-card-head,.shot-list-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.prompt-card-title,.shot-list-title{font-size:14px;font-weight:700;color:var(--ink)}.prompt-card-sub{font-size:11px;color:var(--ink3)}
 .prompt-box{padding:16px;background:linear-gradient(180deg, rgba(248,244,238,.6), rgba(255,255,255,.96))}
 .prompt-text{white-space:pre-wrap;word-break:break-word;font-size:13px;line-height:1.75;color:var(--ink2)}
 .shot-list-body{padding:16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .shot-chip{border:1px solid var(--border);border-radius:14px;padding:13px;background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(245,240,232,.92))}
-.shot-chip-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:8px}
-.shot-num{font-size:11px;font-weight:700;color:var(--ink3);background:var(--paper3);padding:4px 8px;border-radius:999px}
+.shot-chip-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:8px}.shot-num{font-size:11px;font-weight:700;color:var(--ink3);background:var(--paper3);padding:4px 8px;border-radius:999px}
 .shot-type{font-size:10px;text-transform:uppercase;letter-spacing:.08em;padding:4px 8px;border-radius:999px;font-weight:700;border:1px solid transparent}
-.est{background:var(--teal-bg);color:var(--teal);border-color:var(--teal-border)}
-.act{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border)}
-.det{background:var(--rose-bg);color:var(--rose);border-color:var(--rose-border)}
-.emo{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border)}
-.shot-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px}
-.shot-meta{font-size:11px;color:var(--ink3);margin-bottom:7px}
-.shot-copy{font-size:12px;color:var(--ink2);line-height:1.6}
+.est{background:var(--teal-bg);color:var(--teal);border-color:var(--teal-border)}.act{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-border)}.det{background:var(--rose-bg);color:var(--rose);border-color:var(--rose-border)}.emo{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border)}
+.shot-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px}.shot-meta{font-size:11px;color:var(--ink3);margin-bottom:7px}.shot-copy{font-size:12px;color:var(--ink2);line-height:1.6}
 .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;gap:14px;min-height:320px}
 .spinner{width:30px;height:30px;border:3px solid var(--paper3);border-top-color:var(--amber);border-radius:50%;animation:spin .75s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-msg{font-size:14px;color:var(--ink3)}
-.footer-note{padding:0 18px 18px;font-size:12px;color:var(--ink3)}
+.loading-msg{font-size:14px;color:var(--ink3)}.footer-note{padding:0 18px 18px;font-size:12px;color:var(--ink3)}
 .toast{position:fixed;right:18px;bottom:18px;background:var(--ink);color:#fff;padding:12px 14px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);pointer-events:none;transition:.2s;z-index:10;font-size:13px}
 .toast.show{opacity:1;transform:translateY(0)}
-@media(max-width:1100px){
-  .app{grid-template-columns:1fr}
-  .sidebar{border-right:none;border-bottom:1px solid var(--border)}
-  .out-grid{grid-template-columns:1fr}
-  .summary-card{position:static}
-}
-@media(max-width:760px){
-  .main-shell{padding:18px}
-  .empty-title{font-size:30px}
-  .quick-grid,.shot-list-body,.g2{grid-template-columns:1fr}
-  .logo{font-size:24px}
-  .out-head{padding:18px 18px 14px}
-  .out-grid{padding:14px}
-}
+.hidden{display:none !important}
+@media(max-width:1100px){.app{grid-template-columns:1fr}.sidebar{border-right:none;border-bottom:1px solid var(--border)}.out-grid{grid-template-columns:1fr}.summary-card{position:static}}
+@media(max-width:760px){.main-shell{padding:18px}.empty-title{font-size:30px}.quick-grid,.shot-list-body,.g2{grid-template-columns:1fr}.logo{font-size:24px}.out-head{padding:18px 18px 14px}.out-grid{padding:14px}}
 </style>
 </head>
 <body>
@@ -210,7 +105,7 @@ textarea:focus,input[type=text]:focus,select:focus{
   <aside class="sidebar">
     <div class="s-head">
       <div class="logo"><span class="logo-dot"></span><span><em>Ghibli</em> ASMR Director</span></div>
-      <div class="logo-sub">Gemini image + Veo motion prompt planner with continuity lock, export tools, and quick presets.</div>
+      <div class="logo-sub">Gemini image + Veo motion prompt planner with continuity lock, export tools, presets, and style control.</div>
       <div class="mode-row">
         <button class="mode-btn on" id="m-short" type="button" onclick="setMode('short')">▶ Short · 60s</button>
         <button class="mode-btn" id="m-long" type="button" onclick="setMode('long')">▶▶ Long · 10 min</button>
@@ -261,14 +156,33 @@ textarea:focus,input[type=text]:focus,select:focus{
       </section>
 
       <section class="sec">
+        <div class="sec-title"><span class="pip"></span> Animation style</div>
+        <div class="field">
+          <label for="style-preset">Style preset</label>
+          <select id="style-preset">
+            <option value="ghibli_asmr">Ghibli ASMR · default</option>
+            <option value="shinkai_cozy">Shinkai-inspired cozy glow</option>
+            <option value="soft_watercolor">Soft watercolor anime</option>
+            <option value="minimal_anime">Clean minimal anime</option>
+            <option value="custom">Custom style</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="style-extra">Extra style notes</label>
+          <textarea id="style-extra" rows="3" placeholder="Optional: add extra style notes, or write your full custom style if you choose Custom."></textarea>
+        </div>
+        <div class="helper" id="style-helper">Default is locked to your Ghibli ASMR style. If the user wants to change the animation look, they can switch the preset or add custom notes here.</div>
+      </section>
+
+      <section class="sec">
         <div class="sec-title"><span class="pip"></span> Story / activity</div>
         <div class="field">
           <label for="story">Describe the full sequence</label>
-          <textarea id="story" rows="5" placeholder="A quiet rainy morning — she wakes slowly, boils water, brews tea, butters warm bread, and sits by the window listening to rain."></textarea>
+          <textarea id="story" rows="4" placeholder="A quiet rainy morning — she wakes up slowly, makes tea, sits by the window watching rain, reads a book, and drifts off again."></textarea>
         </div>
         <div class="field">
-          <label for="sections">Scene sections <span class="helper">(optional — auto if blank)</span></label>
-          <textarea id="sections" rows="3" placeholder="Waking up (3 shots), Making tea (4 shots), Window moment (3 shots)"></textarea>
+          <label for="sections">Scene sections <span style="color:var(--ink3);font-weight:400">(optional — auto if blank)</span></label>
+          <textarea id="sections" rows="2" placeholder="Waking up (3 shots), Making tea (4 shots), Window moment (3 shots)"></textarea>
         </div>
       </section>
 
@@ -299,13 +213,13 @@ textarea:focus,input[type=text]:focus,select:focus{
         <div class="field">
           <label>Camera angles</label>
           <div class="tags" id="angles">
-            <button class="tag on" type="button" data-v="wide establishing shot">Wide</button>
-            <button class="tag on" type="button" data-v="medium shot">Medium</button>
-            <button class="tag on" type="button" data-v="close-up detail">Close-up</button>
-            <button class="tag on" type="button" data-v="over-the-shoulder POV">POV</button>
-            <button class="tag" type="button" data-v="bird's eye top-down">Top-down</button>
-            <button class="tag" type="button" data-v="low angle upward">Low angle</button>
-            <button class="tag" type="button" data-v="silhouette backlit">Silhouette</button>
+            <span class="tag on" data-v="wide establishing shot">Wide</span>
+            <span class="tag on" data-v="medium shot">Medium</span>
+            <span class="tag on" data-v="close-up detail">Close-up</span>
+            <span class="tag on" data-v="over-the-shoulder POV">POV</span>
+            <span class="tag" data-v="bird's eye top-down">Top-down</span>
+            <span class="tag" data-v="low angle upward">Low angle</span>
+            <span class="tag" data-v="silhouette backlit">Silhouette</span>
           </div>
           <div class="inline-actions">
             <button class="btn sm" type="button" onclick="setTagGroup('angles', true)">Select all</button>
@@ -314,14 +228,14 @@ textarea:focus,input[type=text]:focus,select:focus{
         </div>
 
         <div class="field">
-          <label>ASMR sound style <span class="helper">(for Veo motion hints)</span></label>
+          <label>ASMR sound style</label>
           <div class="tags" id="sounds">
-            <button class="tag on" type="button" data-v="rain sounds">Rain</button>
-            <button class="tag on" type="button" data-v="gentle kitchen sounds">Kitchen</button>
-            <button class="tag" type="button" data-v="nature birds">Nature</button>
-            <button class="tag" type="button" data-v="fire crackling">Fire</button>
-            <button class="tag" type="button" data-v="page turning">Pages</button>
-            <button class="tag" type="button" data-v="fabric rustling">Fabric</button>
+            <span class="tag on" data-v="rain sounds">Rain</span>
+            <span class="tag on" data-v="gentle kitchen sounds">Kitchen</span>
+            <span class="tag" data-v="nature birds">Nature</span>
+            <span class="tag" data-v="fire crackling">Fire</span>
+            <span class="tag" data-v="page turning">Pages</span>
+            <span class="tag" data-v="fabric rustling">Fabric</span>
           </div>
           <div class="inline-actions">
             <button class="btn sm" type="button" onclick="setTagGroup('sounds', true)">Select all</button>
@@ -338,11 +252,7 @@ textarea:focus,input[type=text]:focus,select:focus{
         <button class="btn sm amber full" type="button" onclick="lockBible()">Lock bible</button>
       </div>
       <div class="inline-actions">
-        <button class="btn sm teal full" type="button" onclick="copyAllPrompts()">Copy all</button>
-        <button class="btn sm teal full" type="button" onclick="downloadTxt()">Export TXT</button>
-      </div>
-      <div class="inline-actions">
-        <button class="btn sm amber full" type="button" onclick="savePreset()">Save preset</button>
+        <button class="btn sm teal full" type="button" onclick="savePreset()">Save preset</button>
         <button class="btn sm full" type="button" onclick="loadPreset()">Load preset</button>
       </div>
     </div>
@@ -350,95 +260,114 @@ textarea:focus,input[type=text]:focus,select:focus{
 
   <main class="main">
     <div class="main-shell">
-      <section class="hero">
+      <section class="hero" id="empty-state">
         <div class="hero-inner">
-          <div class="main-empty" id="empty">
+          <div class="main-empty">
             <div class="empty-icon">🎬</div>
-            <div class="empty-title">Your Ghibli ASMR director</div>
-            <div class="empty-sub">Lock the scene bible, describe the action, then generate a polished prompt package with shot planning, prompt export, and continuity reminders.</div>
+            <div class="empty-title">Your cozy animation prompt studio</div>
+            <div class="empty-sub">Lock the scene bible, keep Ghibli ASMR as the default animation style, then generate a cleaner shot plan with Gemini image prompts and Veo motion prompts.</div>
             <div class="pipeline">
               <span class="pip-step">Scene Bible</span><span class="pip-arrow">→</span>
-              <span class="pip-step">Shot list</span><span class="pip-arrow">→</span>
-              <span class="pip-step">Gemini prompt</span><span class="pip-arrow">→</span>
-              <span class="pip-step">Veo motion</span><span class="pip-arrow">→</span>
-              <span class="pip-step">CapCut</span><span class="pip-arrow">→</span>
-              <span class="pip-step">YouTube</span>
+              <span class="pip-step">Style Lock</span><span class="pip-arrow">→</span>
+              <span class="pip-step">Shot Plan</span><span class="pip-arrow">→</span>
+              <span class="pip-step">Gemini Prompt</span><span class="pip-arrow">→</span>
+              <span class="pip-step">Veo Motion</span>
             </div>
           </div>
-          <div class="output" id="output"></div>
         </div>
       </section>
 
-      <section class="quick-grid">
-        <div class="info-card">
+      <section class="quick-grid" id="info-grid">
+        <article class="info-card">
+          <div class="info-kicker">Default style</div>
+          <div class="info-title">Ghibli ASMR is preloaded</div>
+          <div class="info-copy">Your main animation look is already built in as the default. Change the preset only when you want a different rendering style.</div>
+        </article>
+        <article class="info-card">
           <div class="info-kicker">Workflow</div>
-          <div class="info-title">Prompt pack builder</div>
-          <div class="info-copy">Creates a clean director prompt you can paste into ChatGPT, Gemini, Claude, or your prompt workflow.</div>
-        </div>
-        <div class="info-card">
+          <div class="info-title">Generate, copy, export</div>
+          <div class="info-copy">Build the planner prompt, copy everything at once, or export a TXT file for easier use in ChatGPT, Claude, Gemini, or your notes.</div>
+        </article>
+        <article class="info-card">
           <div class="info-kicker">Continuity</div>
-          <div class="info-title">Bible-first layout</div>
-          <div class="info-copy">Character, outfit, room, light, palette, and mood stay locked so the story drifts less between shots.</div>
-        </div>
-        <div class="info-card">
-          <div class="info-kicker">Output</div>
-          <div class="info-title">Copy, export, save</div>
-          <div class="info-copy">Keep presets in browser storage and export prompt packages as plain text for quick reuse.</div>
-        </div>
+          <div class="info-title">Keep rooms and character stable</div>
+          <div class="info-copy">The scene bible stamps the same character, outfit, room, lighting, and palette into every shot instruction to reduce drift.</div>
+        </article>
       </section>
+
+      <section class="output" id="output"></section>
     </div>
   </main>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast">Saved</div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const GHIBLI = `High-detail modern anime film background aesthetic, cozy Ghibli-inspired atmosphere, crisp polished line art combined with soft digital paint, lush environmental detail, immersive storytelling, soft cinematic 2.5D depth, warm ambient lighting, vivid warm color harmony, stylized anime rendering, non-photorealistic, no live-action realism, no plastic CGI, no glossy 3D render`;
-  let currentMode = 'short';
-  let lastPromptText = '';
-  let lastShotData = [];
-  let bibleText = '';
+(() => {
+  const STYLE_PRESETS = {
+    ghibli_asmr: 'High-detail modern anime film background aesthetic, cozy Ghibli-inspired atmosphere, crisp polished line art combined with soft digital paint, lush environmental detail, immersive storytelling, soft cinematic 2.5D depth, warm ambient lighting, vivid warm color harmony, beautiful cozy ambience, calm and relaxing atmospheric visual ASMR mood, stylized anime rendering, non-photorealistic, no live-action realism, no plastic CGI, no glossy 3D render',
+    shinkai_cozy: 'High-detail anime cinematic background aesthetic, luminous Shinkai-inspired atmosphere, refined line art with radiant digital paint, dramatic sky glow, reflective surfaces, emotional lighting transitions, layered depth, colorful but soft cinematic harmony, non-photorealistic anime rendering',
+    soft_watercolor: 'Soft watercolor anime illustration, painterly edges, delicate texture blooms, gentle diffuse lighting, hand-painted feeling, tender atmosphere, layered softness, subtle line work, dreamy cozy palette, non-photorealistic anime rendering',
+    minimal_anime: 'Clean modern anime illustration, polished simple line art, restrained detail density, soft digital shading, balanced composition, warm ambient lighting, cozy atmosphere, elegant color harmony, non-photorealistic anime rendering'
+  };
 
-  function bindTagGroup(id) {
-    const root = document.getElementById(id);
-    if (!root) return;
-    root.querySelectorAll('.tag').forEach(tag => {
-      tag.addEventListener('click', (e) => {
-        e.preventDefault();
-        tag.classList.toggle('on');
-      });
-    });
-  }
+  const DEFAULTS = {
+    mode: 'short',
+    shotcount: '5',
+    ratio: '--ar 9:16',
+    stylePreset: 'ghibli_asmr'
+  };
 
-  function setTagGroup(id, on) {
-    document.querySelectorAll(`#${id} .tag`).forEach(tag => tag.classList.toggle('on', on));
-  }
+  let currentMode = DEFAULTS.mode;
+  let lockedBible = '';
+  let lastOutputText = '';
 
-  function setMode(mode) {
-    currentMode = mode;
-    document.getElementById('m-short').classList.toggle('on', mode === 'short');
-    document.getElementById('m-long').classList.toggle('on', mode === 'long');
-    document.getElementById('mode-desc').textContent = mode === 'short'
-      ? '~10–12 shots · one slice-of-life moment · 5–7 sec per clip'
-      : '~80–120 shots · full story arc · multiple scenes · 5–8 sec per clip';
-    document.getElementById('shotcount').value = mode === 'short' ? '5' : '8';
-    document.getElementById('ratio').value = mode === 'short' ? '--ar 9:16' : '--ar 16:9';
-  }
+  const byId = (id) => document.getElementById(id);
+  const toast = (msg) => {
+    const el = byId('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('show'), 1800);
+  };
 
-  function getBible() {
-    return {
-      char: document.getElementById('b-char').value.trim(),
-      outfit: document.getElementById('b-outfit').value.trim(),
-      loc: document.getElementById('b-loc').value.trim(),
-      room: document.getElementById('b-room').value.trim(),
-      light: document.getElementById('b-light').value,
-      palette: document.getElementById('b-palette').value.trim(),
-      mood: document.getElementById('b-mood').value.trim(),
-    };
-  }
+  const escapeHtml = (str) => str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 
-  function bibleToString(b) {
+  const getSelectedValues = (id) => [...document.querySelectorAll(`#${id} .tag.on`)].map(tag => tag.dataset.v);
+
+  const setStyleHelper = () => {
+    const preset = byId('style-preset').value;
+    const helper = byId('style-helper');
+    if (preset === 'custom') {
+      helper.textContent = 'Custom mode is on. The text in Extra style notes becomes the main animation style description.';
+    } else {
+      helper.textContent = 'Default is locked to your Ghibli ASMR style. If the user wants to change the animation look, they can switch the preset or add custom notes here.';
+    }
+  };
+
+  const getStyleText = () => {
+    const preset = byId('style-preset').value;
+    const extra = byId('style-extra').value.trim();
+    if (preset === 'custom') {
+      return extra || STYLE_PRESETS.ghibli_asmr;
+    }
+    return extra ? `${STYLE_PRESETS[preset]}, extra style notes: ${extra}` : STYLE_PRESETS[preset];
+  };
+
+  const getBible = () => ({
+    char: byId('b-char').value.trim(),
+    outfit: byId('b-outfit').value.trim(),
+    loc: byId('b-loc').value.trim(),
+    room: byId('b-room').value.trim(),
+    light: byId('b-light').value,
+    palette: byId('b-palette').value.trim(),
+    mood: byId('b-mood').value.trim()
+  });
+
+  const bibleToString = (b) => {
     const parts = [];
     if (b.char) parts.push(b.char);
     if (b.outfit) parts.push(`wearing ${b.outfit}`);
@@ -448,356 +377,362 @@ document.addEventListener('DOMContentLoaded', () => {
     if (b.palette) parts.push(`color palette: ${b.palette}`);
     if (b.mood) parts.push(b.mood);
     return parts.join(', ');
-  }
+  };
 
-  function getSelectedValues(id) {
-    return [...document.querySelectorAll(`#${id} .tag.on`)].map(el => el.dataset.v);
-  }
+  const getFormState = () => ({
+    char: byId('b-char').value,
+    outfit: byId('b-outfit').value,
+    loc: byId('b-loc').value,
+    room: byId('b-room').value,
+    light: byId('b-light').value,
+    palette: byId('b-palette').value,
+    mood: byId('b-mood').value,
+    stylePreset: byId('style-preset').value,
+    styleExtra: byId('style-extra').value,
+    story: byId('story').value,
+    sections: byId('sections').value,
+    shotcount: byId('shotcount').value,
+    ratio: byId('ratio').value,
+    mode: currentMode,
+    angles: getSelectedValues('angles'),
+    sounds: getSelectedValues('sounds')
+  });
 
-  function escapeHtml(str) {
-    return str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
-  }
+  const applyFormState = (data) => {
+    byId('b-char').value = data.char || '';
+    byId('b-outfit').value = data.outfit || '';
+    byId('b-loc').value = data.loc || '';
+    byId('b-room').value = data.room || '';
+    byId('b-light').value = data.light || byId('b-light').options[0].value;
+    byId('b-palette').value = data.palette || '';
+    byId('b-mood').value = data.mood || '';
+    byId('style-preset').value = data.stylePreset || DEFAULTS.stylePreset;
+    byId('style-extra').value = data.styleExtra || '';
+    byId('story').value = data.story || '';
+    byId('sections').value = data.sections || '';
+    byId('shotcount').value = data.shotcount || DEFAULTS.shotcount;
+    byId('ratio').value = data.ratio || DEFAULTS.ratio;
+    setMode(data.mode || DEFAULTS.mode, false);
 
-  function slugTitle(str) {
-    return (str || 'ghibli-prompts')
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '') || 'ghibli-prompts';
-  }
+    document.querySelectorAll('#angles .tag').forEach(tag => tag.classList.toggle('on', (data.angles || []).includes(tag.dataset.v)));
+    document.querySelectorAll('#sounds .tag').forEach(tag => tag.classList.toggle('on', (data.sounds || []).includes(tag.dataset.v)));
 
-  function showToast(message) {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.classList.add('show');
-    clearTimeout(showToast._timer);
-    showToast._timer = setTimeout(() => toast.classList.remove('show'), 1800);
-  }
-
-  function lockBible() {
-    const b = getBible();
-    bibleText = bibleToString(b);
-    if (!bibleText) {
-      showToast('Add a few bible details first.');
-      return;
+    if (!(data.angles || []).length) setTagGroup('angles', true);
+    if (!(data.sounds || []).length) {
+      setTagGroup('sounds', false);
+      document.querySelector('#sounds .tag[data-v="rain sounds"]').classList.add('on');
+      document.querySelector('#sounds .tag[data-v="gentle kitchen sounds"]').classList.add('on');
     }
-    showToast('Scene bible locked.');
-  }
 
-  function buildShotPlan(story, sections, angles, mode, shotcount) {
-    const sectionList = sections
-      ? sections.split(/\n|,/).map(s => s.trim()).filter(Boolean)
-      : [];
+    setStyleHelper();
+  };
 
-    const fallback = story
-      .split(/[.!?]/)
-      .map(s => s.trim())
-      .filter(Boolean)
-      .slice(0, 4);
+  const autosave = () => localStorage.setItem('ghibliAutosave', JSON.stringify(getFormState()));
 
-    const sceneSeeds = sectionList.length ? sectionList : (fallback.length ? fallback : ['Opening moment', 'Main action', 'Quiet detail', 'Ending beat']);
-    const types = ['ESTABLISHING', 'ACTION', 'DETAIL', 'EMOTIONAL'];
-    const shortCount = Math.max(6, Math.min(12, Number(shotcount) + 5));
-    const longCount = Math.max(16, Math.min(24, Number(shotcount) * 2 + 6));
-    const total = mode === 'short' ? shortCount : longCount;
+  const shotTemplates = (mode) => mode === 'short'
+    ? [
+      ['Arrival of Mood', 'ESTABLISHING'],
+      ['First Small Action', 'ACTION'],
+      ['Texture Detail', 'DETAIL'],
+      ['Second Quiet Action', 'ACTION'],
+      ['Resting Feeling', 'EMOTIONAL']
+    ]
+    : [
+      ['Opening World', 'ESTABLISHING'],
+      ['Setup Motion', 'ACTION'],
+      ['Material Detail', 'DETAIL'],
+      ['Routine Rhythm', 'ACTION'],
+      ['Breathing Space', 'EMOTIONAL'],
+      ['Environment Callback', 'ESTABLISHING'],
+      ['Handwork Detail', 'DETAIL'],
+      ['Closing Feeling', 'EMOTIONAL']
+    ];
 
-    const shots = [];
-    for (let i = 0; i < total; i++) {
-      const seed = sceneSeeds[i % sceneSeeds.length].replace(/\([^)]*\)/g, '').trim();
-      const angle = angles[i % angles.length] || 'medium shot';
-      const type = types[i % types.length];
-      const duration = type === 'EMOTIONAL' || type === 'ESTABLISHING' ? (mode === 'short' ? '6s' : '7s') : '5s';
-      const title = `${seed || 'Scene'} ${i + 1}`;
-      shots.push({
-        number: i + 1,
-        title,
-        type,
-        angle,
-        duration,
-        action: createActionLine(type, seed || 'Quiet scene')
-      });
-    }
-    return shots;
-  }
+  const buildShotCards = (angles) => {
+    const templates = shotTemplates(currentMode);
+    return templates.map((item, idx) => {
+      const [title, type] = item;
+      const camera = angles[idx % angles.length] || 'medium shot';
+      const cls = type === 'ESTABLISHING' ? 'est' : type === 'ACTION' ? 'act' : type === 'DETAIL' ? 'det' : 'emo';
+      const desc = type === 'ESTABLISHING'
+        ? 'Use this shot to lock the room layout, lighting direction, and overall atmosphere before details begin.'
+        : type === 'ACTION'
+        ? 'Show a calm physical task with restrained motion and a clear readable pose for image-to-video conversion.'
+        : type === 'DETAIL'
+        ? 'Focus on texture, object contact, or a tactile micro-moment that strengthens the ASMR feeling.'
+        : 'Let the shot breathe. Hold on stillness, mood, and the soft emotional pause between actions.';
+      return `<div class="shot-chip">
+        <div class="shot-chip-top">
+          <span class="shot-num">Shot ${idx + 1}</span>
+          <span class="shot-type ${cls}">${type}</span>
+        </div>
+        <div class="shot-name">${title}</div>
+        <div class="shot-meta">Camera: ${camera}</div>
+        <div class="shot-copy">${desc}</div>
+      </div>`;
+    }).join('');
+  };
 
-  function createActionLine(type, seed) {
-    const clean = seed.charAt(0).toLowerCase() + seed.slice(1);
-    if (type === 'ESTABLISHING') return `Establish the space and mood around ${clean}, letting the environment breathe before movement begins.`;
-    if (type === 'ACTION') return `Focus on the key movement during ${clean}, with simple hand or body action as the main beat.`;
-    if (type === 'DETAIL') return `Highlight tactile micro-details from ${clean}, such as texture, steam, crumbs, cloth, or light on surfaces.`;
-    return `Hold on the quiet emotional afterglow of ${clean}, with calm stillness and a gentle sense of reflection.`;
-  }
-
-  function generate() {
-    const story = document.getElementById('story').value.trim();
+  const buildPrompt = () => {
+    const story = byId('story').value.trim();
     if (!story) {
       alert('Please describe your story or activity first.');
-      return;
+      return null;
     }
 
     const bible = getBible();
-    const sections = document.getElementById('sections').value.trim();
-    const shotcount = document.getElementById('shotcount').value;
-    const ratio = document.getElementById('ratio').value;
+    const sections = byId('sections').value.trim();
+    const shotcount = byId('shotcount').value;
+    const ratio = byId('ratio').value;
     const angles = getSelectedValues('angles');
     const sounds = getSelectedValues('sounds');
-    const totalShots = currentMode === 'short' ? '10–12 total' : '80–120 total across many scenes';
-    const activeAngles = angles.length ? angles : ['wide establishing shot', 'medium shot', 'close-up detail'];
-    const activeSounds = sounds.length ? sounds : ['ambient room tone'];
-
-    document.getElementById('empty').style.display = 'none';
-    const output = document.getElementById('output');
-    output.style.display = 'flex';
-    output.innerHTML = `
-      <div class="out-wrap">
-        <div class="loading">
-          <div class="spinner"></div>
-          <div class="loading-msg">Building your shot package...</div>
-        </div>
-      </div>
-    `;
-
+    const styleText = getStyleText();
     const bibleLines = [];
+
     if (bible.char) bibleLines.push(`• Character: ${bible.char}${bible.outfit ? `, wearing ${bible.outfit}` : ''}`);
     if (bible.loc) bibleLines.push(`• Location: ${bible.loc}${bible.room ? `, ${bible.room}` : ''}`);
     bibleLines.push(`• Lighting: ${bible.light}`);
     if (bible.palette) bibleLines.push(`• Palette: ${bible.palette}`);
     if (bible.mood) bibleLines.push(`• Mood: ${bible.mood}`);
 
-    const prompt = `You are a Ghibli ASMR video director planning a ${currentMode === 'short' ? '60-second YouTube Short' : '10-minute YouTube video'}.
+    const planner = `You are a ${byId('style-preset').selectedOptions[0].textContent} video director planning a ${currentMode === 'short' ? '60-second YouTube Short' : '10-minute YouTube video'}.
 
 SCENE BIBLE — stamp these details into EVERY single image prompt and every Veo prompt. Never let them drift:
 ${bibleLines.join('\n')}
 
-STORY: "${story}"
-${sections ? `SECTIONS: ${sections}` : 'Auto-split into logical scenes with good pacing.'}
+ANIMATION STYLE — treat this as the default visual rendering language for the whole piece:
+${styleText}
+
+STORY:
+"${story}"
+
+${sections ? `SECTIONS:\n${sections}` : 'SECTIONS:\nAuto-split into logical scene groups with clear pacing.'}
+
 FORMAT: ${currentMode === 'short' ? 'Short (60s)' : 'Long (10 min)'}
-TOTAL SHOTS: ${totalShots}
+TOTAL SHOTS: ${currentMode === 'short' ? '10–12 total' : '80–120 total across many scenes'}
 SHOTS PER SCENE: approximately ${shotcount}
-CAMERA ANGLES (cycle through): ${activeAngles.join(', ')}
-ASMR SOUNDS: ${activeSounds.join(', ')}
+CAMERA ANGLES (cycle through): ${(angles.length ? angles : ['wide establishing shot', 'medium shot', 'close-up detail']).join(', ')}
+ASMR SOUNDS: ${(sounds.length ? sounds : ['ambient room tone']).join(', ')}
 ASPECT RATIO: ${ratio}
 
-For each shot, give me EXACTLY this format — no deviations:
+For each shot, give me EXACTLY this format:
 
 ═══ [SCENE NAME] ═══
-
 Shot [N] — [Title] · [ESTABLISHING/ACTION/DETAIL/EMOTIONAL]
 Camera: [angle]
-CapCut clip: [duration in seconds, e.g. 5s] · [transition suggestion, e.g. fade/cut/dissolve]
+CapCut clip: [duration in seconds] · [transition suggestion]
 Action: [one sentence describing what is happening]
 
 GEMINI IMAGE PROMPT:
-[2–3 sentences visual description. MUST include: character appearance + outfit + location details + lighting + palette from the bible above. Describe the exact composition and what fills the frame. End with: ${ratio}, ${GHIBLI}]
+[2–3 sentences visual description. MUST include: character appearance, outfit, location details, room details, lighting, palette, and style language above. Describe exact composition and what fills the frame. End with: ${ratio}, ${styleText}]
 
 VEO MOTION PROMPT:
-[2–3 sentences describing ONLY the movement and camera motion for this clip. Include: what moves (steam, hands, curtain, etc.), camera movement (slow push in / gentle pan / static / slight drift), speed (slow / unhurried / barely perceptible), and any ASMR-relevant motion like ${activeSounds.join(', ')}. Start with "Camera:" to describe camera move, then "Subject:" for what moves in scene.]
-
----
+[2–3 sentences describing ONLY movement and camera motion. Start with "Camera:" then "Subject:". Keep motion calm, slow, ASMR-paced, and include any sound-relevant movement such as ${(sounds.length ? sounds : ['ambient room tone']).join(', ')}.]
 
 RULES:
-- Every GEMINI prompt MUST re-state character + outfit + room so Gemini never drifts between shots
-- Every VEO prompt must be calm, slow, ASMR-paced — no fast cuts or action
-- Shot types: ESTABLISHING=wide world-building, ACTION=character doing something, DETAIL=close texture/object, EMOTIONAL=quiet feeling moment
-- CapCut tip: short clips (4–6s) for action, longer (6–8s) for emotional/establishing
-- For Long format: include varied pacing — some slower emotional scenes, some gentle action sequences`;
+- Keep continuity locked across all shots.
+- Every GEMINI prompt must restate character, outfit, and room.
+- Every VEO prompt must stay calm and slow.
+- Shot types: ESTABLISHING = world-building, ACTION = task, DETAIL = tactile micro-moment, EMOTIONAL = quiet feeling.
+- Vary pacing for long format.
+- Preserve the default style unless the user deliberately changed the preset or custom style notes.`;
 
-    lastPromptText = prompt;
-    lastShotData = buildShotPlan(story, sections, activeAngles, currentMode, shotcount);
+    return {
+      planner,
+      bible,
+      styleText,
+      angles: angles.length ? angles : ['wide establishing shot', 'medium shot', 'close-up detail'],
+      sounds: sounds.length ? sounds : ['ambient room tone']
+    };
+  };
 
-    setTimeout(() => renderOutput({ bible, story, sections, ratio, shotcount, angles: activeAngles, sounds: activeSounds }), 450);
-  }
+  const showLoading = () => {
+    byId('empty-state').classList.add('hidden');
+    byId('info-grid').classList.add('hidden');
+    const output = byId('output');
+    output.style.display = 'flex';
+    output.innerHTML = `<div class="out-wrap"><div class="loading"><div class="spinner"></div><div class="loading-msg">Generating your planner package...</div></div></div>`;
+  };
 
-  function renderOutput(data) {
-    const output = document.getElementById('output');
+  const renderOutput = (data) => {
+    const output = byId('output');
+    const presetName = byId('style-preset').selectedOptions[0].textContent;
+    lastOutputText = data.planner;
     output.innerHTML = `
       <div class="out-wrap">
         <div class="out-head">
           <div>
             <div class="out-title">Prompt package ready</div>
-            <div class="out-meta">Use the full director prompt for ChatGPT, Gemini, Claude, or your own pipeline. Below it, you also get a fast visual shot planner based on your current setup.</div>
+            <div class="out-meta">Default style: ${presetName}. Use this planner prompt in ChatGPT, Claude, or Gemini to generate your full shot plan.</div>
           </div>
           <div class="out-actions">
-            <button class="btn sm teal" type="button" onclick="copyAllPrompts()">Copy all</button>
+            <button class="btn sm" type="button" onclick="copyAllPrompts()">Copy all</button>
             <button class="btn sm teal" type="button" onclick="downloadTxt()">Export TXT</button>
             <button class="btn sm amber" type="button" onclick="savePreset()">Save preset</button>
           </div>
         </div>
         <div class="out-grid">
           <aside class="summary-card">
-            <div class="summary-title">Project summary</div>
+            <div class="summary-title">Locked summary</div>
             <div class="summary-list">
-              <div class="summary-row"><div class="summary-key">Format</div><div class="summary-value">${currentMode === 'short' ? 'Short · 60 seconds' : 'Long · 10 minutes'}</div></div>
-              <div class="summary-row"><div class="summary-key">Story</div><div class="summary-value">${escapeHtml(data.story)}</div></div>
-              <div class="summary-row"><div class="summary-key">Continuity lock</div><div class="summary-value">${escapeHtml(bibleToString(data.bible) || 'No bible details set yet.')}</div></div>
-              <div class="summary-row"><div class="summary-key">Camera angles</div><div class="summary-value">${escapeHtml(data.angles.join(', '))}</div></div>
-              <div class="summary-row"><div class="summary-key">ASMR sounds</div><div class="summary-value">${escapeHtml(data.sounds.join(', '))}</div></div>
-              <div class="summary-row"><div class="summary-key">Output settings</div><div class="summary-value">${escapeHtml(data.ratio)} · about ${escapeHtml(String(data.shotcount))} shots per scene</div></div>
+              <div class="summary-row"><div class="summary-key">Character</div><div class="summary-value">${escapeHtml(data.bible.char || 'Not set')}</div></div>
+              <div class="summary-row"><div class="summary-key">Outfit</div><div class="summary-value">${escapeHtml(data.bible.outfit || 'Not set')}</div></div>
+              <div class="summary-row"><div class="summary-key">Location</div><div class="summary-value">${escapeHtml(data.bible.loc || 'Not set')}</div></div>
+              <div class="summary-row"><div class="summary-key">Room</div><div class="summary-value">${escapeHtml(data.bible.room || 'Not set')}</div></div>
+              <div class="summary-row"><div class="summary-key">Style</div><div class="summary-value">${escapeHtml(data.styleText)}</div></div>
+              <div class="summary-row"><div class="summary-key">Sounds</div><div class="summary-value">${escapeHtml(data.sounds.join(', '))}</div></div>
             </div>
           </aside>
-
           <div class="right-stack">
-            <section class="prompt-card">
-              <div class="prompt-card-head">
-                <div>
-                  <div class="prompt-card-title">Director master prompt</div>
-                  <div class="prompt-card-sub">Paste this into your model of choice to generate the full shot package.</div>
-                </div>
-                <button class="btn sm" type="button" onclick="copyPromptOnly()">Copy prompt</button>
-              </div>
-              <div class="prompt-box">
-                <div class="prompt-text">${escapeHtml(lastPromptText)}</div>
-              </div>
-            </section>
-
             <section class="shot-list-card">
               <div class="shot-list-head">
                 <div>
-                  <div class="shot-list-title">Quick shot planner</div>
-                  <div class="prompt-card-sub">A visual planning layer so the right side feels useful before you paste prompts elsewhere.</div>
+                  <div class="shot-list-title">Suggested shot rhythm</div>
+                  <div class="prompt-card-sub">A cleaner structure before you send the planner to an AI model.</div>
                 </div>
-                <button class="btn sm" type="button" onclick="copyShotPlan()">Copy shot plan</button>
               </div>
-              <div class="shot-list-body">
-                ${lastShotData.map(renderShotChip).join('')}
+              <div class="shot-list-body">${buildShotCards(data.angles)}</div>
+            </section>
+            <section class="prompt-card">
+              <div class="prompt-card-head">
+                <div>
+                  <div class="prompt-card-title">Director planner prompt</div>
+                  <div class="prompt-card-sub">Copy this whole block into your AI tool.</div>
+                </div>
+                <button class="btn sm" type="button" onclick="copyAllPrompts()">Copy</button>
+              </div>
+              <div class="prompt-box">
+                <div class="prompt-text">${escapeHtml(data.planner)}</div>
               </div>
             </section>
           </div>
         </div>
-        <div class="footer-note">Tip: save a preset after you like the continuity lock. Then change only the story field for faster iteration.</div>
-      </div>
-    `;
-  }
+        <div class="footer-note">Tip: keep Ghibli ASMR as your default preset for consistency. Only switch the style preset when you intentionally want a different render language.</div>
+      </div>`;
+  };
 
-  function renderShotChip(shot) {
-    const typeClass = shot.type === 'ESTABLISHING' ? 'est' : shot.type === 'ACTION' ? 'act' : shot.type === 'DETAIL' ? 'det' : 'emo';
-    return `
-      <article class="shot-chip">
-        <div class="shot-chip-top">
-          <span class="shot-num">Shot ${shot.number}</span>
-          <span class="shot-type ${typeClass}">${shot.type}</span>
-        </div>
-        <div class="shot-name">${escapeHtml(shot.title)}</div>
-        <div class="shot-meta">${escapeHtml(shot.angle)} · ${escapeHtml(shot.duration)}</div>
-        <div class="shot-copy">${escapeHtml(shot.action)}</div>
-      </article>
-    `;
-  }
-
-  function copyPromptOnly() {
-    if (!lastPromptText) return showToast('Nothing to copy yet.');
-    navigator.clipboard.writeText(lastPromptText).then(() => showToast('Prompt copied.'));
-  }
-
-  function copyShotPlan() {
-    if (!lastShotData.length) return showToast('Nothing to copy yet.');
-    const text = lastShotData.map(shot => `Shot ${shot.number} — ${shot.title} · ${shot.type}\nCamera: ${shot.angle}\nDuration: ${shot.duration}\nAction: ${shot.action}`).join('\n\n');
-    navigator.clipboard.writeText(text).then(() => showToast('Shot plan copied.'));
-  }
-
-  function copyAllPrompts() {
-    if (!lastPromptText) return showToast('Nothing to copy yet.');
-    const shots = lastShotData.map(shot => `Shot ${shot.number} — ${shot.title} · ${shot.type}\nCamera: ${shot.angle}\nDuration: ${shot.duration}\nAction: ${shot.action}`).join('\n\n');
-    const full = `${lastPromptText}\n\n=== QUICK SHOT PLAN ===\n\n${shots}`;
-    navigator.clipboard.writeText(full).then(() => showToast('Everything copied.'));
-  }
-
-  function downloadTxt() {
-    if (!lastPromptText) return showToast('Nothing to export yet.');
-    const shots = lastShotData.map(shot => `Shot ${shot.number} — ${shot.title} · ${shot.type}\nCamera: ${shot.angle}\nDuration: ${shot.duration}\nAction: ${shot.action}`).join('\n\n');
-    const text = `${lastPromptText}\n\n=== QUICK SHOT PLAN ===\n\n${shots}`;
-    const blob = new Blob([text], { type: 'text/plain' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `${slugTitle(document.getElementById('story').value || 'ghibli-prompts')}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(a.href);
-    showToast('TXT exported.');
-  }
-
-  function savePreset() {
-    const preset = {
-      currentMode,
-      bible: getBible(),
-      story: document.getElementById('story').value,
-      sections: document.getElementById('sections').value,
-      shotcount: document.getElementById('shotcount').value,
-      ratio: document.getElementById('ratio').value,
-      angles: getSelectedValues('angles'),
-      sounds: getSelectedValues('sounds')
-    };
-    localStorage.setItem('ghibliAsmPreset', JSON.stringify(preset));
-    showToast('Preset saved.');
-  }
-
-  function setSpecificTags(id, values) {
-    const set = new Set(values);
-    document.querySelectorAll(`#${id} .tag`).forEach(tag => tag.classList.toggle('on', set.has(tag.dataset.v)));
-  }
-
-  function loadPreset() {
-    const raw = localStorage.getItem('ghibliAsmPreset');
-    if (!raw) return showToast('No preset found.');
-    try {
-      const preset = JSON.parse(raw);
-      setMode(preset.currentMode || 'short');
-      const b = preset.bible || {};
-      document.getElementById('b-char').value = b.char || '';
-      document.getElementById('b-outfit').value = b.outfit || '';
-      document.getElementById('b-loc').value = b.loc || '';
-      document.getElementById('b-room').value = b.room || '';
-      document.getElementById('b-light').value = b.light || document.getElementById('b-light').options[0].value;
-      document.getElementById('b-palette').value = b.palette || '';
-      document.getElementById('b-mood').value = b.mood || '';
-      document.getElementById('story').value = preset.story || '';
-      document.getElementById('sections').value = preset.sections || '';
-      document.getElementById('shotcount').value = preset.shotcount || '5';
-      document.getElementById('ratio').value = preset.ratio || '--ar 9:16';
-      setSpecificTags('angles', preset.angles || []);
-      setSpecificTags('sounds', preset.sounds || []);
-      showToast('Preset loaded.');
-    } catch (e) {
-      showToast('Preset could not be loaded.');
+  window.setMode = (mode, sync = true) => {
+    currentMode = mode;
+    byId('m-short').classList.toggle('on', mode === 'short');
+    byId('m-long').classList.toggle('on', mode === 'long');
+    byId('mode-desc').textContent = mode === 'short'
+      ? '~10–12 shots · one slice-of-life moment · 5–7 sec per clip'
+      : '~80–120 shots · full story arc · multiple scenes · 5–8 sec per clip';
+    if (sync) {
+      byId('shotcount').value = mode === 'long' ? '8' : '5';
+      byId('ratio').value = mode === 'long' ? '--ar 16:9' : '--ar 9:16';
     }
+    autosave();
+  };
+
+  window.setTagGroup = (id, state) => {
+    document.querySelectorAll(`#${id} .tag`).forEach(tag => tag.classList.toggle('on', state));
+    autosave();
+  };
+
+  window.lockBible = () => {
+    lockedBible = bibleToString(getBible());
+    toast(lockedBible ? 'Scene bible locked' : 'Bible is empty');
+  };
+
+  window.resetAll = () => {
+    applyFormState({
+      char: '', outfit: '', loc: '', room: '', light: byId('b-light').options[0].value, palette: '', mood: '',
+      stylePreset: DEFAULTS.stylePreset, styleExtra: '', story: '', sections: '', shotcount: DEFAULTS.shotcount,
+      ratio: DEFAULTS.ratio, mode: DEFAULTS.mode,
+      angles: ['wide establishing shot', 'medium shot', 'close-up detail', 'over-the-shoulder POV'],
+      sounds: ['rain sounds', 'gentle kitchen sounds']
+    });
+    lockedBible = '';
+    byId('output').style.display = 'none';
+    byId('empty-state').classList.remove('hidden');
+    byId('info-grid').classList.remove('hidden');
+    localStorage.removeItem('ghibliAutosave');
+    toast('Reset complete');
+  };
+
+  window.savePreset = () => {
+    localStorage.setItem('ghibliPreset', JSON.stringify(getFormState()));
+    toast('Preset saved');
+  };
+
+  window.loadPreset = () => {
+    const raw = localStorage.getItem('ghibliPreset');
+    if (!raw) {
+      toast('No preset found');
+      return;
+    }
+    applyFormState(JSON.parse(raw));
+    toast('Preset loaded');
+  };
+
+  window.copyAllPrompts = async () => {
+    if (!lastOutputText) {
+      toast('Nothing to copy yet');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(lastOutputText);
+      toast('Copied all');
+    } catch {
+      toast('Copy failed');
+    }
+  };
+
+  window.downloadTxt = () => {
+    if (!lastOutputText) {
+      toast('Nothing to export yet');
+      return;
+    }
+    const blob = new Blob([lastOutputText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'ghibli-asmr-planner.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('TXT exported');
+  };
+
+  window.generate = () => {
+    const built = buildPrompt();
+    if (!built) return;
+    showLoading();
+    setTimeout(() => renderOutput(built), 280);
+    autosave();
+  };
+
+  byId('angles').addEventListener('click', (e) => {
+    const tag = e.target.closest('.tag');
+    if (!tag) return;
+    tag.classList.toggle('on');
+    autosave();
+  });
+
+  byId('sounds').addEventListener('click', (e) => {
+    const tag = e.target.closest('.tag');
+    if (!tag) return;
+    tag.classList.toggle('on');
+    autosave();
+  });
+
+  document.querySelectorAll('input, textarea, select').forEach(el => {
+    el.addEventListener('input', autosave);
+    el.addEventListener('change', autosave);
+  });
+
+  byId('style-preset').addEventListener('change', setStyleHelper);
+
+  const saved = localStorage.getItem('ghibliAutosave');
+  if (saved) {
+    try { applyFormState(JSON.parse(saved)); }
+    catch { applyFormState({ mode: DEFAULTS.mode, angles: ['wide establishing shot', 'medium shot', 'close-up detail', 'over-the-shoulder POV'], sounds: ['rain sounds', 'gentle kitchen sounds'] }); }
+  } else {
+    applyFormState({ mode: DEFAULTS.mode, angles: ['wide establishing shot', 'medium shot', 'close-up detail', 'over-the-shoulder POV'], sounds: ['rain sounds', 'gentle kitchen sounds'] });
   }
 
-  function resetAll() {
-    ['b-char','b-outfit','b-loc','b-room','b-palette','b-mood','story','sections'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('b-light').selectedIndex = 0;
-    setMode('short');
-    setSpecificTags('angles', ['wide establishing shot','medium shot','close-up detail','over-the-shoulder POV']);
-    setSpecificTags('sounds', ['rain sounds','gentle kitchen sounds']);
-    lastPromptText = '';
-    lastShotData = [];
-    document.getElementById('output').style.display = 'none';
-    document.getElementById('output').innerHTML = '';
-    document.getElementById('empty').style.display = 'flex';
-    showToast('Reset done.');
-  }
-
-  // Expose functions for inline onclick handlers
-  window.setMode = setMode;
-  window.setTagGroup = setTagGroup;
-  window.lockBible = lockBible;
-  window.generate = generate;
-  window.resetAll = resetAll;
-  window.copyAllPrompts = copyAllPrompts;
-  window.downloadTxt = downloadTxt;
-  window.savePreset = savePreset;
-  window.loadPreset = loadPreset;
-  window.copyPromptOnly = copyPromptOnly;
-  window.copyShotPlan = copyShotPlan;
-
-  bindTagGroup('angles');
-  bindTagGroup('sounds');
-  resetAll();
-});
+  setStyleHelper();
+})();
 </script>
 </body>
 </html>
